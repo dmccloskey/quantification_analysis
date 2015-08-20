@@ -5,7 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>01c68f4f-fd90-452d-baf1-ba0d2a74574c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>quantification_analysis.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,13 +22,46 @@
     <DebugSymbols>true</DebugSymbols>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="quantification_analysis.py" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="blanks.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="quantitation_method.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="main.py" />
+    <Compile Include="peakInformation.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="quantitation_resultsTable.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standards.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="unknown_physiologicalRatios.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="quality_controls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="unknowns.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="unknown_averages.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="unknown_replicates.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
