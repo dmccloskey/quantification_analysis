@@ -1,6 +1,10 @@
 from copy import copy
+# Resources
+from io_utilities.base_importData import base_importData
+from io_utilities.base_exportData import base_exportData
+from calculate_utilities.r import robjects,importr
 
-class quantitation_method():
+class quantitationMethod():
     def __init__(self,id_I=[], q1_mass_I=[],q3_mass_I=[], met_id_I=[],component_name_I=[],is_name_I=[],fit_I=[],
                  weighting_I=[],intercept_I=[],slope_I=[],correlation_I=[],use_area_I=[],lloq_I=[],uloq_I=[],
                  points_I=[]):
@@ -33,7 +37,7 @@ class quantitation_method():
                                        actual_concentration_I[cnt],area_ratio_I[cnt],height_ratio_I[cnt],dilution_factor_I[cnt])
             qmethod_O.append(copy(qmrow.qmethod_row));
             qmrow.clear_data();  
-        self.qmethod = qmethod_O       
+        self.qmethod = qmethod_O;
 
     def export_qmethod_js(self,data_dir = 'tmp'):
         '''export the qmethods for visualization using ddt'''
@@ -69,32 +73,6 @@ class quantitation_method():
             qmethod_O.append(copy(qmrow.qmethod_row));
             qmrow.clear_data();
         return qmethod_O;
-
-class quantitation_method_row():
-    def __init__(self,id_I=None, q1_mass_I=None,q3_mass_I=None, met_id_I=None,component_name_I=None,is_name_I=None):
-        self.qmethod_row = self._set_qmethod_row(id_I, q1_mass_I,q3_mass_I, met_id_I,component_name_I,is_name_I);
-
-    def _set_qmethod_row(self, id_I=None, q1_mass_I=None,q3_mass_I=None, met_id_I=None,component_name_I=None,is_name_I=None,fit_I=None,
-                 weighting_I=None,intercept_I=None,slope_I=None,correlation_I=None,use_area_I=None,lloq_I=None,uloq_I=None,
-                 points_I=None):
-        '''make a row of a quantitation method table'''
-        qmethod_row = {};
-        qmethod_row['id'] = id_I;
-        qmethod_row['q1_mass'] = q1_mass_I;
-        qmethod_row['q3_mass'] = q3_mass_I;
-        qmethod_row['met_id'] = met_id_I;
-        qmethod_row['component_name'] = component_name_I;
-        qmethod_row['is_name'] = is_name_I;
-        qmethod_row['fit'] = fit_I;
-        qmethod_row['weighting'] = weighting_I;
-        qmethod_row['intercept'] = intercept_I;
-        qmethod_row['slope'] = slope_I;
-        qmethod_row['correlation'] = correlation_I;
-        qmethod_row['use_area'] = use_area_I;
-        qmethod_row['lloq'] = lloq_I;
-        qmethod_row['uloq'] = uloq_I;
-        qmethod_row['points'] = points_I;
-        return qmethod_row;
 
     def _parse_calibrators(self,use_area_I,actual_concentration_I,area_ratio_I,height_ratio_I,dilution_factor_I):
         '''make the calibrator structure
@@ -279,6 +257,32 @@ class quantitation_method_row():
             #return slope_O, intercept_O, correlation_O, lloq_O, uloq_O, points_O;
         except:
             print('error in R')
+
+class quantitationMethod_row():
+    def __init__(self,id_I=None, q1_mass_I=None,q3_mass_I=None, met_id_I=None,component_name_I=None,is_name_I=None):
+        self.qmethod_row = self._set_qmethod_row(id_I, q1_mass_I,q3_mass_I, met_id_I,component_name_I,is_name_I);
+
+    def _set_qmethod_row(self, id_I=None, q1_mass_I=None,q3_mass_I=None, met_id_I=None,component_name_I=None,is_name_I=None,fit_I=None,
+                 weighting_I=None,intercept_I=None,slope_I=None,correlation_I=None,use_area_I=None,lloq_I=None,uloq_I=None,
+                 points_I=None):
+        '''make a row of a quantitation method table'''
+        qmethod_row = {};
+        qmethod_row['id'] = id_I;
+        qmethod_row['q1_mass'] = q1_mass_I;
+        qmethod_row['q3_mass'] = q3_mass_I;
+        qmethod_row['met_id'] = met_id_I;
+        qmethod_row['component_name'] = component_name_I;
+        qmethod_row['is_name'] = is_name_I;
+        qmethod_row['fit'] = fit_I;
+        qmethod_row['weighting'] = weighting_I;
+        qmethod_row['intercept'] = intercept_I;
+        qmethod_row['slope'] = slope_I;
+        qmethod_row['correlation'] = correlation_I;
+        qmethod_row['use_area'] = use_area_I;
+        qmethod_row['lloq'] = lloq_I;
+        qmethod_row['uloq'] = uloq_I;
+        qmethod_row['points'] = points_I;
+        return qmethod_row;
 
     def clear_data(self):
         self.qmethod_row = {};

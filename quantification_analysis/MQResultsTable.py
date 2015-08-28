@@ -1,6 +1,9 @@
 from copy import copy
+# Resources
+from io_utilities.base_importData import base_importData
+from io_utilities.base_exportData import base_exportData
 
-class quantitation_resultsTable():
+class MQResultsTable():
     def __init__(self):
         self.resultsTable = [];
 
@@ -10,9 +13,10 @@ class quantitation_resultsTable():
     def _set_resultTable_multiQuant(self,data_I):
         """set the results table from a list of dictionaries"""
         resultsTable = [];
-        rtrow = quantitation_resultsTable_row();
+        rtrow = MQResultsTable_row();
         for d in data_I:
-            rtrow._set_resultsTable_row(d['Index'],
+            tmp = {};
+            tmp = rtrow._set_resultsTable_row(d['Index'],
                             d['Sample Index'],
                             d['Original Filename'],
                             d['Sample Name'],
@@ -87,8 +91,7 @@ class quantitation_resultsTable():
                             d['Accuracy'],
                             d['Comment'],
                             d['Use_Calculated_Concentration']);
-            resultsTable.append(copy(rtrow.resultsTable_row));
-            rtrow.clear_data();
+            resultsTable.append(tmp);
 
         return resultsTable;
 
@@ -96,14 +99,39 @@ class quantitation_resultsTable():
         """import resultsTable"""
         io = base_importData();
         io.read_csv(filename_I);
-        self.resultTable = self._set_resultTable_multiQuant(io.data);
+        self.resultsTable = self._set_resultTable_multiQuant(io.data);
 
-class quantitation_resultsTable_row():
+    def export_resultsTable(self,filename_O):
+        """export resultsTable"""
+        io = base_exportData(self.resultsTable);
+        io.write_dict2csv(filename_O);
+
+class MQResultsTable_row():
     def __init__(self):
         self.resultsTable_row = {};
 
     def clear_data(self):
         self.resultsTable_row = {};
+
+    def format_data(self,data_I):
+        """remove specific sequences for utf-8 compatibility"""
+        row = {};
+        if data_I:
+            try:
+                for key, value in data_I.items():
+                    # replace multiquant-specific output
+                    if (value == 'N/A' or value == '< 0' or value == '<2 points' or
+                        value == 'degenerate' or value == '(No IS)'): value = None;
+                    # replace empty strings with None
+                    if not(value):
+                        value = None;
+                    else:
+                        #value.decode('utf-8', "ignore"); # convert to utf-8      
+                        value = value;           
+                    row[key] = value;
+            except BaseException as e:
+                sys.exit('error formating data %s' % d);  
+        return row;
 
     def _set_resultsTable_row(self,
                  index__I=None,sample_index_I=None,original_filename_I=None,
@@ -204,5 +232,6 @@ class quantitation_resultsTable_row():
         resultsTable_row['accuracy_']=accuracy__I;
         resultsTable_row['comment_']=comment__I;
         resultsTable_row['use_calculated_concentration']=use_calculated_concentration_I;
-        return resultsTable_row;
+        resultsTable_row_O = self.format_data(resultsTable_row);
+        return resultsTable_row_O;
 

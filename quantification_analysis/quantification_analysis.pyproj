@@ -30,14 +30,14 @@
     <Compile Include="blanks.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="quantitation_method.py">
+    <Compile Include="quantitationMethod.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
     <Compile Include="peakInformation.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="quantitation_resultsTable.py">
+    <Compile Include="MQResultsTable.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="standards.py">
