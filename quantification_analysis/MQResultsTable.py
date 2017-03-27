@@ -90,7 +90,20 @@ class MQResultsTable():
                             d['Calculated Concentration'],
                             d['Accuracy'],
                             d['Comment'],
-                            d['Use_Calculated_Concentration']);
+                            d['Use_Calculated_Concentration'],
+                            d['Start Time at 5%'],
+                            d['End Time at 5%'],
+                            d['Width at 5%'],
+                            d['Start Time at 10%'],
+                            d['End Time at 10%'],
+                            d['Width at 10%'],
+                            d['Slope of Baseline'],
+                            d['Tailing Factor'],
+                            d['Asymmetry Factor'],
+                            d['Ion Ratio'],
+                            d['Expected Ion Ratio'],
+                            d['Points Across Baseline'],
+                            d['Points Across Half Height'],);
             resultsTable.append(tmp);
 
         return resultsTable;
@@ -155,7 +168,22 @@ class MQResultsTable_row():
                  is_total_width_I=None,width_at_50_I=None,is_width_at_50_I=None,
                  signal_2_noise_I=None,is_signal_2_noise_I=None,baseline_delta_2_height_I=None,
                  is_baseline_delta_2_height_I=None,modified__I=None,relative_rt_I=None,used__I=None,
-                 calculated_concentration_I=None,accuracy__I=None,comment__I=None,use_calculated_concentration_I=None):
+                 calculated_concentration_I=None,accuracy__I=None,comment__I=None,
+                 use_calculated_concentration_I=None,
+                start_time_at_5_I=None,
+                end_time_at_5_I=None,
+                width_at_5_I=None,
+                start_time_at_10_I=None,
+                end_time_at_10_I=None,
+                width_at_10_I=None,
+                slope_of_baseline_I=None,
+                tailing_factor_I=None,
+                asymmetry_factor_I=None,
+                ion_ratio_I=None,
+                expected_ion_ratio_I=None,
+                points_across_baseline_I=None,
+                points_across_half_height_I=None,
+                 ):
         resultsTable_row = {};
         resultsTable_row['index_']=index__I;
         resultsTable_row['sample_index']=sample_index_I;
@@ -232,6 +260,19 @@ class MQResultsTable_row():
         resultsTable_row['accuracy_']=accuracy__I;
         resultsTable_row['comment_']=comment__I;
         resultsTable_row['use_calculated_concentration']=use_calculated_concentration_I;
+        resultsTable_row['start_time_at_5']=start_time_at_5_I
+        resultsTable_row['end_time_at_5']=end_time_at_5_I
+        resultsTable_row['width_at_5']=width_at_5_I
+        resultsTable_row['start_time_at_10']=start_time_at_10_I
+        resultsTable_row['end_time_at_10']=end_time_at_10_I
+        resultsTable_row['width_at_10']=width_at_10_I
+        resultsTable_row['slope_of_baseline']=slope_of_baseline_I
+        resultsTable_row['tailing_factor']=tailing_factor_I
+        resultsTable_row['asymmetry_factor']=asymmetry_factor_I
+        resultsTable_row['ion_ratio']=ion_ratio_I
+        resultsTable_row['expected_ion_ratio']=expected_ion_ratio_I
+        resultsTable_row['points_across_baseline']=points_across_baseline_I
+        resultsTable_row['points_across_half_height']=points_across_half_height_I
         resultsTable_row_O = self.format_data(resultsTable_row);
         return resultsTable_row_O;
 
